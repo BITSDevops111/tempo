@@ -1,43 +1,34 @@
 version: 2.1
-orbs:
-  docker: circleci/docker@1.7.0
-  snyk: snyk/snyk@1.1.1
-  stackhawk: stackhawk/stackhawk@1.0.3
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+
 jobs:
-  build-scan:
+  build:
     docker:
-      # replace with your preferred images
-      - image: cimg/base:stable
-    environment:
-      IMAGE_NAME: tomgonzo/hawkdog
+      - image: cimg/python:3.11
     steps:
       - checkout
-      - setup_remote_docker
-      - docker/check
-      - run: docker build -t $IMAGE_NAME .
-      - snyk/scan:
-          docker-image-name: '$IMAGE_NAME:latest'
-          fail-on-issues: false
-          monitor-on-build: true
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-container'
-          severity-threshold: high
-          target-file: Dockerfile
-          token-variable: SNYK_TOKEN
-      - run: docker push $IMAGE_NAME:latest 
-          
+      - run: python main.py
+  test:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - checkout
+      - run: python tests.py
+  deploy:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - run: echo "Deploying to production server"
+
 workflows:
-  all-the-things:
+  build_and_test_deploy:
     jobs:
-      - build-scan
-      - stackhawk/hawkscan-local:
+      - build
+      - test:
           requires:
-            - build-scan
-          docker-network: host
-          app-id: 2c8f6807-844b-4998-8a35-1003af16d218
-          steps:
-            - checkout
-            - run:
-                name: Run Vulny
-                command: docker-compose up -d
+            - build 
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
