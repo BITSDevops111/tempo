@@ -8,7 +8,7 @@ orbs:
 jobs:
   build-scan:
     docker:
-      # replace with your preferred image
+      # replace with your preferred images
       - image: cimg/base:stable
     environment:
       IMAGE_NAME: tomgonzo/hawkdog
