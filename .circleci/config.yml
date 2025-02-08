@@ -24,9 +24,6 @@ jobs:
             export PATH=$SONAR_SCANNER_HOME/bin:$PATH
             export SONAR_SCANNER_OPTS="-server"
             ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
-            sonar-scanner -Dsonar.organization=circlecicd -Dsonar.projectKey=circlecicd_circlecicd01  -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-
-
             
 workflows:
   version: 2
@@ -36,4 +33,3 @@ workflows:
       - sonarCloud_analysis:
           requires:
             - install_dependencies
-      
