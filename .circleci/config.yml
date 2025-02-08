@@ -24,9 +24,7 @@ jobs:
             unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
             export PATH=$SONAR_SCANNER_HOME/bin:$PATH
             export SONAR_SCANNER_OPTS="-server"
-            ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
-            sonar-scanner -X -Dsonar.organization=circlecicd01 -Dsonar.projectKey=circlecicd01_circlecicd0 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN   
-        
+            ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here           
 
 workflows:
   version: 2
