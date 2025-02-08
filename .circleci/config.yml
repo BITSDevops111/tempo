@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Install & Run SonarScanner Analysise
+          name: Install & Run SonarScanner Analysis
     
           command: |
             export SONAR_SCANNER_VERSION=6.2.1.4610
