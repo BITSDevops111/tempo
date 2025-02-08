@@ -1,11 +1,2 @@
-## Python - CircleCI
-
-### Run the code
-```
-python main.py
-```
-
-### Test the code
-```
-python tests.py
-```
+# Simple_NodeJS_App
+Simple NodeJS App Deployment
