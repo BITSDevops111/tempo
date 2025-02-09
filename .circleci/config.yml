@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Install & Run SonarScanner Anaslysiss
+          name: Install & Run SonarScanner Anaslysis
     
           command: |
             export SONAR_SCANNER_VERSION=6.2.1.4610
@@ -25,8 +25,7 @@ jobs:
             export PATH=$SONAR_SCANNER_HOME/bin:$PATH
             export SONAR_SCANNER_OPTS="-server"
             ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
-            echo "Sonar Token (masked): ${SONAR_TOKEN:0:4}****************"  # Shows first 4 characters, masks the rest
-            sonar-scanner  -Dsonar.organization=circlecicd01  -Dsonar.projectKey=circlecicd01_circlecicd0  -Dsonar.sources=.  -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN         
+            sonar-scanner -Dsonar.organization=circlecicd1 -Dsonar.projectKey=circlecicd1_circlecicd0123 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
             
 workflows:
   version: 2
