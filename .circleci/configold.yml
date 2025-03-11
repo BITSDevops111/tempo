@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  install_dependencies:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: 
+          name: Install NPM dependencies
+          command: npm install
+  sonarCloud_analysis:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: 
+          name: Install & Run SonarScanner Anaslysiss
+    
+          command: |
+            export SONAR_SCANNER_VERSION=6.2.1.4610
+            export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux-x64
+            curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux-x64.zip
+            unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+            export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+            export SONAR_SCANNER_OPTS="-server"
+            ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
+            sonar-scanner -Dsonar.organization=circlecicd1 -Dsonar.projectKey=circlecicd1_circlecicd0123 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+            
+workflows:
+  version: 2
+  deploy_workflow:
+    jobs:
+      - install_dependencies
+      - sonarCloud_analysis:
+          requires:
+            - install_dependencies
