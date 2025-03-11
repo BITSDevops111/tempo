@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Send SonarCloud results to DefectDojo
           command: |
-            python <<EOF
+            python \<<EOF
               import json
               import os
               import requests
