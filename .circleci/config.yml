@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Send SonarCloud results to DefectDojo
           command: |
-            python3 \<<EOF
+              python3 \<<EOF
               import json
               import os
               import requests
@@ -93,7 +93,7 @@ jobs:
                   defectdojo_api_url = os.environ.get("DEFECTDOJO_API_URL")
                   defectdojo_api_key = os.environ.get("DEFECTDOJO_API_KEY")
                   send_sonarcloud_to_defectdojo(project_key, token, defectdojo_api_url, defectdojo_api_key)
-            EOF
+              EOF
 
 workflows:
   version: 2
