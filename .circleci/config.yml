@@ -13,13 +13,18 @@ jobs:
           name: Install Python
           command: |
             sudo apt-get update
-            sudo apt-get install -y python3 python3-pip
-            sudo pip3 install requests
+            sudo apt-get install -y python3 python3-pip jq
       - run:
           name: Verify Python Installation
           command: |
-            python3 --version
-            which python3
+             python3 --version
+             which python3
+             pip3 --version
+             which pip3
+             sonar-scanner --version
+             which sonar-scanner
+             jq --version
+             which jq
 
   sonarCloud_analysis:
     docker:
@@ -47,6 +52,10 @@ jobs:
             else
               echo "SonarCloud Quality Gate passed."
             fi
+      - run:
+          name: Install Python Requests
+          command: |
+             pip3 install requests
       - run:
           name: Send SonarCloud results to DefectDojo
           command: |
