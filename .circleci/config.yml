@@ -27,7 +27,7 @@ jobs:
             ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
             sonar-scanner -Dsonar.organization=circlecicd1 -Dsonar.projectKey=circlecicd1_circlecicd0123 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       - run:
-          name: Check SonarCloud Quality Gate
+          name: Checks SonarCloud Quality Gate
           command: |
             curl -u "${SONAR_TOKEN}:" "${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=circlecicd1_circlecicd0123" > quality_gate.json
             if grep -q '"status":"ERROR"' quality_gate.json; then
