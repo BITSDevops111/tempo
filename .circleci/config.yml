@@ -21,8 +21,6 @@ jobs:
              which python3
              pip3 --version
              which pip3
-             sonar-scanner --version
-             which sonar-scanner
              jq --version
              which jq
 
