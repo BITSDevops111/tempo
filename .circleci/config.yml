@@ -51,10 +51,6 @@ jobs:
               echo "SonarCloud Quality Gate passed."
             fi
       - run:
-          name: Install Python Requests
-          command: |
-              sudo python3 -m pip install requests
-      - run:
           name: Send SonarCloud results to DefectDojo
           command: |
             python3 send_to_defectdojo.py
