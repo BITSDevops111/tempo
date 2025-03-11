@@ -9,6 +9,11 @@ jobs:
       - run:
           name: Install NPM dependencies
           command: npm install
+      - run:
+          name: Install Python
+          command: |
+            apt-get update
+            apt-get install -y python3 python3-pip
 
   sonarCloud_analysis:
     docker:
