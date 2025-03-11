@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Install Python Requests
           command: |
-             pip3 install requests
+              sudo python3 -m pip install requests
       - run:
           name: Send SonarCloud results to DefectDojo
           command: |
