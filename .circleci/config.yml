@@ -8,23 +8,8 @@ jobs:
       - checkout
       - run:
           name: Install NPM dependencies
-          command: npm install
-      - run:
-          name: Install Python
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y python3 python3-pip jq
-            sudo pip install requests
-      - run:
-          name: Verify Python Installation
-          command: |
-             python3 --version
-             which python3
-             pip3 --version
-             which pip3
-             jq --version
-             which jq
-
+          command: npm install  
+          
   sonarCloud_analysis:
     docker:
       - image: circleci/node:latest
@@ -42,8 +27,17 @@ jobs:
             ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
             sonar-scanner -Dsonar.organization=circlecicd1 -Dsonar.projectKey=circlecicd1_circlecicd0123 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       - run:
-          name: Send SonarCloud results to DefectDojo
+          name: Install Python Dependencies  and Send SonarCloud results to DefectDojo
           command: |
+            sudo apt-get update
+            sudo apt-get install -y python3 python3-pip jq
+            sudo pip install requests
+            python3 --version
+            which python3
+            pip3 --version
+            which pip3
+            jq --version
+            which jq
             python3 send_to_defectdojo.py
 
 workflows:
