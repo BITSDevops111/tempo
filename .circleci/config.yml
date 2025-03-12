@@ -27,7 +27,7 @@ jobs:
             ls $SONAR_SCANNER_HOME/bin #check if sonar-scanner binary is present here
             sonar-scanner -Dsonar.organization=circlecicd1 -Dsonar.projectKey=circlecicd1_circlecicd0123 -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       - run:
-          name: Install Python Dependencies and Send SonarCloud results to DefectDojo nD FIXED API
+          name: Install Python Dependencies and Send SonarCloud results to DefectDojo and  Fixing API
           command: |
             sudo apt-get update
             sudo apt-get install -y python3 python3-pip jq
